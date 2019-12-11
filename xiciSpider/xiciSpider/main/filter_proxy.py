@@ -2,20 +2,23 @@
 # -*- coding: utf-8 -*-
 # 测试 proxy.txt 中的代理是否可用，将可用代理写入 alive.txt
 import os
+import time
 import urllib.request
 import re
 import threading
-from xiciSpider.custLog import CustLog
-from xiciSpider.middlewares.resource import PROXIES
+
+from xiciSpider.utils.resource import Resource
+from xiciSpider.utils.cust_log import CustLog
+from xiciSpider.utils.path_utils import get_root_path
 
 
 class TestProxy(object):
 
     def __init__(self):
         # 字符串前面加 r 就不用管其中的特殊字符了，即整体转义
-        print(os.getcwd())  # '/Users/imac/MyDir/Project/PyProject/SpiderProject/xiciSpider/xiciSpider'
-        self.totalProxyFile = os.path.join(os.getcwd(), 'proxy.txt')  # 全部代理.txt
-        self.aliveProxyFile = os.path.join(os.getcwd(), 'alive.txt')  # 可用代理.txt
+        print(get_root_path())  # '/Users/imac/MyDir/Project/PyProject/SpiderProject/xiciSpider/xiciSpider'
+        self.totalProxyFile = os.path.join(get_root_path(), 'build/proxy.txt')  # 全部代理.txt
+        self.aliveProxyFile = os.path.join(get_root_path(), 'build/alive.txt')  # 可用代理.txt
         self.URL = r'http://www.baidu.com/'
         self.threads = 5  # 10
         self.timeout = 3
@@ -113,7 +116,9 @@ class TestProxy(object):
 
 if __name__ == '__main__':
     tp = TestProxy()
-    # for ele in PROXIES:
-    #     print('开始测试代理: ele=%s' % ele)
-    #     tp.link_with_server_port('http', ele)
-    tp.run()
+    for ele in Resource.get_proxy():
+        print('开始测试代理: ele=%s' % ele)
+        protocol = ele[0:ele.index(':')]
+        tp.link_with_server_port(protocol, ele)
+        time.sleep(1)
+    # tp.run()

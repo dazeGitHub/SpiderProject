@@ -57,10 +57,10 @@ COOKIES_ENABLED = False
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'xiciSpider.middlewares.customUserAgent.RandomUserAgent': 30,
+    'xiciSpider.middlewares.custom_user_agent.RandomUserAgent': 30,
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
 
-    'xiciSpider.middlewares.customProxy.RandomProxy': 10,
+    'xiciSpider.middlewares.custom_proxy.RandomProxy': 10,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 20
 
 }

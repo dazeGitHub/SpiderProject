@@ -9,7 +9,7 @@
 
 from scrapy.selector import Selector
 
-from xiciSpider.spiders.proxyXiciSpider import ProxyXiciSpider
+from xiciSpider.spiders.proxy_xici_spider import ProxyXiciSpider
 
 with open('./xici_response.xml', 'r') as fp:
     body = fp.read()

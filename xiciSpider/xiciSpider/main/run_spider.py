@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 # -*- encoding: utf-8 -*-
-# 用来运行 spiders 文件夹中的 xxSpider 文件，但是运行不了，总是报找不到 xxSpider 文件?? KeyError: 'Spider not found: proxy360Spider.py'
+# 用来运行 spiders 文件夹中的 xxSpider 文件，但是运行不了，总是报找不到 xxSpider 文件?? KeyError: 'Spider not found: proxy_360_spider.py'
 '''
 @File    :   test_pipeline.py
 @Time    :   2019/12/09 14:18:29
@@ -14,15 +14,17 @@
 import os
 from scrapy.cmdline import execute
 
+from xiciSpider.utils.path_utils import get_root_path
+
 projectBaseName = 'xiciSpider'
 
-spidersFolderpath = os.path.join(os.getcwd(), 'spiders')
+spidersFolderpath = os.path.join(get_root_path(), 'spiders')
 print('spidersFolderpath=%s' % (spidersFolderpath))
 spiderFiles = os.listdir(spidersFolderpath)  # 得到文件夹下的所有文件名称
 spiderFileList = []
 
 for file in spiderFiles:  # 遍历文件夹
-    if not os.path.isdir(file) and str(file).find('Spider') != -1:  # 判断是否是文件夹
+    if not os.path.isdir(file) and str(file).find('spider') != -1:  # 判断是否是文件夹
         spiderFileList.append(file)
 
 intputInfo = '请输入想运行的 Spider 文件序号:\n'

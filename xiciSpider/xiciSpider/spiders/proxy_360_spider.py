@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from xiciSpider.items import GetproxyItem
-from xiciSpider.custLog import CustLog
+from xiciSpider.utils.cust_log import CustLog
 
 
 # 360 代理已经没法用了 !

@@ -4,14 +4,17 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-from xiciSpider.custLog import CustLog
+import os
+
+from xiciSpider.utils.cust_log import CustLog
+from xiciSpider.utils.path_utils import get_root_path
 
 
 class GetproxyPipeline(object):
     myLog = CustLog()
 
     def process_item(self, item, spider):
-        fileName = 'proxy.txt'
+        fileName = os.path.join(get_root_path(), 'build/proxy.txt')
         # self.myLog.info('开始写入到%s，item=%s' % (fileName, item))
         with open(fileName, 'a') as fp:
             fp.write(item['ip'] + '\t')

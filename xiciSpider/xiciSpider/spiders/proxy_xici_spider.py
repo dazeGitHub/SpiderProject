@@ -6,13 +6,13 @@ from scrapy.spidermiddlewares.httperror import HttpError
 from twisted.internet.error import DNSLookupError, TCPTimedOutError
 
 from xiciSpider.items import GetproxyItem
-from xiciSpider.custLog import CustLog
+from xiciSpider.utils.cust_log import CustLog
 from time import sleep
 
 
 class ProxyXiciSpider(scrapy.Spider):
 
-    name = "proxyXiciSpider"
+    name = "proxy_xici_spider"
     allowed_domains = ["xicidaili.com"]
     # nn: 国内高匿代理		nt: 国内普通代理	wn: 国内 HTTPS 代理		wt: 国内 HTTP 代理
     wds = ['nn', 'nt', 'wn', 'wt']
