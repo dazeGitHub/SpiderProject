@@ -1,0 +1,8 @@
+175.42.158.71	9999	HTTP	高匿		福建莆田		xicidaili
+163.204.243.81	9999	HTTP	高匿		福建莆田		xicidaili
+171.13.201.128	9999	HTTPS	高匿		福建莆田		xicidaili
+140.237.113.233	9999	HTTP	高匿
+        电信骨干网
+      		xicidaili
+118.212.107.52	9999	HTTPS	高匿		福建莆田		xicidaili
+115.211.228.53	9999	HTTP	高匿		福建莆田		xicidaili
