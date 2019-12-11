@@ -8,6 +8,7 @@ import os
 import sys
 from colorlog import ColoredFormatter
 
+
 # 定义 CustLog 类
 # 只有错误才会被记录到 logfile 中
 class CustLog(object):
@@ -23,15 +24,15 @@ class CustLog(object):
         stream.setLevel(LOG_LEVEL)
         stream.setFormatter(formatter)
 
-        user = getpass.getuser()   # 返回用户的“登录名称”。此函数会按顺序检查环境变量 LOGNAME, USER, LNAME 和 USERNAME，并返回其中第一个被设置为非空字符串的值。 如果均未设置，则在支持 pwd 模块的系统上将返回来自密码数据库的登录名，否则将引发一个异常。
+        user = getpass.getuser()  # 返回用户的“登录名称”。此函数会按顺序检查环境变量 LOGNAME, USER, LNAME 和 USERNAME，并返回其中第一个被设置为非空字符串的值。 如果均未设置，则在支持 pwd 模块的系统上将返回来自密码数据库的登录名，否则将引发一个异常。
         self.logger = logging.getLogger(user)
         self.logger.setLevel(logging.DEBUG)
         self.logger.addHandler(stream)
 
         # ---------- 输出日志到文件 ----------
         # 切片操作list[<start>:<stop>:<step>] ，step 可以为负数，表示倒着数
-        # 如果 python testCustLog.py 则 sys.argv[0][0:-3] 正好可以得到 testMyLog，即日志文件名为  testCustLog.log
-        logFile = './' + os.path.basename(sys.argv[0][0:-3]) + '.log'  # 日志文件名
+        # 如果 python testCustLog.py 则 sys.argv[0][0:-3] 正好可以得到 testMyLog，即日志文件名为  testCustLog.log，并放到 log 目录下
+        logFile = os.path.join(os.getcwd(), 'log/' + os.path.basename(sys.argv[0][0:-3]) + '.log')  # 日志文件名
 
         # %(asctime)s :   字符串形式的当前时间。默认格式是“2003-07-08 16:49:45,896”。逗号后面的是毫秒
         # %(levelname)s	: 文本形式的日志级别

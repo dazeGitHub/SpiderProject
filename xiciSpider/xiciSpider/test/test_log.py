@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
    File Name：     test_log
-   Description :
+   Description :   测试在控制台打印彩色 log
    Author :        ZYZ
    date：          2019/12/10
 """
