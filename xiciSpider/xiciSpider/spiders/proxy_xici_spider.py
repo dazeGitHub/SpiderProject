@@ -51,7 +51,6 @@ class ProxyXiciSpider(scrapy.Spider):
             request = failure.request
             self.myLog.info('TimeoutError错误 on %s', request.url)
 
-    # 重写了 start_requests() 处理 response，所以这个方法不会执行
     def parse(self, response):
         self.myLog.info('响应成功, url={}'.format(response.url))
         for ele in self.process_data(response):
