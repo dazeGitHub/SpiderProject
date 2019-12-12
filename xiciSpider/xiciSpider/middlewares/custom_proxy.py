@@ -17,5 +17,11 @@ class RandomProxy(object):
     def process_request(self, request, spider):
         if len(Resource.get_proxy()) != 0:
             proxy = random.choice(Resource.get_proxy())
-            # self.myLog.info('random choice proxy = %s' % proxy)
-            # request.meta['proxy'] = 'http://%s' % proxy
+            proxy = proxy.replace('\n', '')
+            proxy = proxy.strip()
+            self.myLog.debug('random choice proxy = %s' % proxy)
+
+            if request.url.startswith("http://"):
+                request.meta['proxy'] = "http://180.96.27.12:88"  # http代理
+            elif request.url.startswith("https://"):
+                request.meta['proxy'] = "http://109.108.87.136:53281"  # https代理

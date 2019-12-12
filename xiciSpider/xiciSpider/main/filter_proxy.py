@@ -19,10 +19,11 @@ class TestProxy(object):
         print(get_root_path())  # '/Users/imac/MyDir/Project/PyProject/SpiderProject/xiciSpider/xiciSpider'
         self.totalProxyFile = os.path.join(get_root_path(), 'build/proxy.txt')  # 全部代理.txt
         self.aliveProxyFile = os.path.join(get_root_path(), 'build/alive.txt')  # 可用代理.txt
-        self.URL = r'http://www.baidu.com/'
+        # self.URL = r'http://www.xicidaili.com/nn/1' # 拿西刺的代理测试西刺的不好使，connect refused
+        # self.URL = r'http://www.baidu.com/'
+        self.URL = r'http://www.cctv.com/'
         self.threads = 5  # 10
         self.timeout = 3
-        self.regex = re.compile(r'baidu.com')
         self.aliveList = []
         self.myLog = LogUtils()
         # self.run()
@@ -78,25 +79,26 @@ class TestProxy(object):
 
     # protocol: http        server: http://123.23.45.4:8080
     def link_with_server_port(self, protocol, server) -> bool:
-        self.myLog.info('link_with_server_port currentThreadName=%s' % threading.currentThread().getName())
+        # self.myLog.info('link_with_server_port currentThreadName=%s' % threading.currentThread().getName())
         opener = urllib.request.build_opener(urllib.request.ProxyHandler({protocol: server}))
         urllib.request.install_opener(opener)
         try:
             response = urllib.request.urlopen(self.URL, timeout=self.timeout)
         except Exception as e:
-            self.myLog.warn('%s connect failed, exception=%s' % (server, e))
+            self.myLog.warn('使用代理 %s connect failed, exception=%s' % (server, e))
             return False
         else:
+            self.myLog.info('成功得到响应数据,响应码%s' % response.code)
             try:
                 readResultStr = response.read().decode()  # response.read() 返回的是 bytes 格式，所以需要 decode()
             except Exception as e2:
                 self.myLog.warn('%s connect response.read() failed, exception=%s' % (server, e2))
                 return False
-            if self.regex.search(readResultStr):
-                self.myLog.info('%s connect success ..........' % server)
+            if str(response.code) == '200':
+                self.myLog.info('%s 请求成功' % self.URL)
                 return True
             else:
-                self.myLog.warn('regex 找不到 baidu.com')
+                self.myLog.info('%s 请求失败' % self.URL)
                 return False
 
     def link_with_proxy(self, lineList):
@@ -120,5 +122,5 @@ if __name__ == '__main__':
         print('开始测试代理: ele=%s' % ele)
         protocol = ele[0:ele.index(':')]
         tp.link_with_server_port(protocol, ele)
-        time.sleep(1)
+        time.sleep(7)
     # tp.run()
