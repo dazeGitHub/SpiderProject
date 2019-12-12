@@ -4,13 +4,13 @@ __author__ = 'hstking hstking@hotmail.com'
 
 import os
 
-from xiciSpider.utils.cust_log import CustLog
+from xiciSpider.utils.log_utils import LogUtils
 
 from xiciSpider.utils.path_utils import get_root_path
 
 
 class Resource:
-    log = CustLog()
+    log = LogUtils()
 
     userAgents = [
         "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
@@ -39,7 +39,7 @@ class Resource:
     def get_proxy():
 
         if len(Resource.__PROXIES) != 0:
-            Resource.log.info('get_proxy 返回长度为:%s' % len(Resource.__PROXIES))
+            # Resource.log.info('get_proxy 返回长度为:%s' % len(Resource.__PROXIES))
             return Resource.__PROXIES
         else:
             aliveProxyFile = os.path.join(get_root_path(), 'build/alive.txt')  # 可用代理.txt
@@ -48,5 +48,5 @@ class Resource:
             with open(aliveProxyFile, 'r') as fp:
                 lines = fp.readlines()
                 Resource.__PROXIES = lines
-                Resource.log.info('get_proxy 返回长度为:%s' % len(Resource.__PROXIES))
+                # Resource.log.info('get_proxy 返回长度为:%s' % len(Resource.__PROXIES))
                 return lines

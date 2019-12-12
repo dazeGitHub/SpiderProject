@@ -8,13 +8,31 @@
 """
 
 # 测试 pipelines
-from xiciSpider.pipelines import GetproxyPipeline
+from xiciSpider.pipelines.pipelines2txt import ToTxtPipeline
+from xiciSpider.pipelines.pipelines2csv import ToCsvPipeline
+from xiciSpider.pipelines.pipelines2json import ToJsonPipeline
+from xiciSpider.pipelines.pipelines2mysql import ToMysqlPipeline
+from xiciSpider.pipelines.pipelines2mongodb import ToMongoDbPipeline
 
-pipeLine = GetproxyPipeline()
-
-item = {'ip': '123.623.88.23', 'port': '8888', 'protocol': 'http', 'type': '高匿', 'loction': '福建',
+item = {'ip': '123.623.88.23', 'port': '8888', 'protocol': 'http', 'type': '高匿', 'location': '福建',
         'source': 'sourceTest'}
 
-pipeLine.process_item(item, None)
+# print('测试 ToTxtPipeline')
+# txtPipeline = ToTxtPipeline()
+# txtPipeline.process_item(item, None)
 
+# print('测试 ToCsvPipeline')
+# csvPipeLine = ToCsvPipeline()
+# csvPipeLine.process_item(item, None)
+#
+print('测试 ToJsonPipeline')
+jsonPipeLine = ToJsonPipeline()
+jsonPipeLine.process_item(item, None)
 
+# print('测试 Mysql Pipeline')
+# mysqlPipeLine = ToMysqlPipeline()
+# mysqlPipeLine.process_item(item,None)
+
+# print('测试 MongoDb Pipeline')
+# mongoDbPipeLine = ToMongoDbPipeline()
+# mongoDbPipeLine.process_item(item,None)

@@ -18,8 +18,14 @@ NEWSPIDER_MODULE = 'xiciSpider.spiders'
 # USER_AGENT = 'xiciSpider (+http://www.yourdomain.com)'
 
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)'
+# ITEM_PIPELINES 是个字典，key 是用来处理结果的类，value 表示执行顺序，值越小执行顺序越靠前，可以添加多个处理类，例如分别写入到 txt ，csv，json 文件中
 ITEM_PIPELINES = {
-    'xiciSpider.pipelines.GetproxyPipeline': 100
+    # 'xiciSpider.pipelines2txt.ToTxtPipeline': 100,
+    # 'xiciSpider.pipelines.pipelines2txt.ToTxtPipeline': 100,
+    # 'xiciSpider.pipelines.pipelines2csv.ToCsvPipeline': 101,
+    'xiciSpider.pipelines.pipelines2json.ToJsonPipeline': 102,
+    # 'xiciSpider.pipelines.pipelines2mysql.ToMysqlPipeline': 103,
+    # 'xiciSpider.pipelines.pipelines2mongodb.ToMongoDbPipeline': 104,
 }
 
 # Obey robots.txt rules
@@ -35,6 +41,8 @@ ROBOTSTXT_OBEY = False
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
+# 两次请求的时间间隔
+DOWNLOAD_DELAY = 5
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
@@ -75,9 +83,6 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'xiciSpider.pipelines.GetproxyPipeline': 300,
-}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html

@@ -6,12 +6,12 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import os
 
-from xiciSpider.utils.cust_log import CustLog
+from xiciSpider.utils.log_utils import LogUtils
 from xiciSpider.utils.path_utils import get_root_path
 
 
-class GetproxyPipeline(object):
-    myLog = CustLog()
+class ToTxtPipeline(object):
+    myLog = LogUtils()
 
     def process_item(self, item, spider):
         fileName = os.path.join(get_root_path(), 'build/proxy.txt')
@@ -21,6 +21,6 @@ class GetproxyPipeline(object):
             fp.write(item['port'] + '\t')
             fp.write(item['protocol'] + '\t')
             fp.write(item['type'] + '\t\t')  # 中文则加两个 \t 防止对不齐
-            fp.write(item['loction'] + '\t\t')
+            fp.write(item['location'] + '\t\t')
             fp.write(item['source'] + '\n')
         return item

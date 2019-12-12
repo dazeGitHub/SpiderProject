@@ -5,7 +5,7 @@ __author__ = 'hstking hstking@hotmail.com'
 # from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware   		scrapy 1.6 时 scrapy.contrib
 # 已弃用并改到新包: scrapy.downloadermiddlewares
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
-from xiciSpider.utils.resource import Resource
+from xiciSpider.data.resource import Resource
 import random
 
 

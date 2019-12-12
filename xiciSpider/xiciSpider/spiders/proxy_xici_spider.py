@@ -6,7 +6,7 @@ from scrapy.spidermiddlewares.httperror import HttpError
 from twisted.internet.error import DNSLookupError, TCPTimedOutError
 
 from xiciSpider.items import GetproxyItem
-from xiciSpider.utils.cust_log import CustLog
+from xiciSpider.utils.log_utils import LogUtils
 from time import sleep
 
 
@@ -19,8 +19,7 @@ class ProxyXiciSpider(scrapy.Spider):
     pages = 20
     sleepTime = 10
     start_urls = []
-    download_delay = 5
-    myLog = CustLog()
+    myLog = LogUtils()
 
     for type in wds:
         for i in range(1, pages + 1):
@@ -28,15 +27,11 @@ class ProxyXiciSpider(scrapy.Spider):
 
     def start_requests(self):
         for url in self.start_urls:
-            print('开始请求: request url = %s' % url)
-            sleep(self.sleepTime)  # 休眠, 防止封ip
-            yield scrapy.Request(url, callback=self.parse_httpbin,
+            self.myLog.info('开始请求: request url = %s' % url)
+            sleep(self.sleepTime)  # 休眠, 防止封ip , 设置了 DOWNLOAD_DELAY 这里貌似不设置也没事
+            yield scrapy.Request(url, callback=self.parse,
                                  errback=self.errback_httpbin,
                                  dont_filter=True)
-
-    def parse_httpbin(self, response):
-        self.myLog.info('响应成功, url={}'.format(response.url))
-        return self.processData(response)
 
     def errback_httpbin(self, failure):
         # log all failures
@@ -58,10 +53,11 @@ class ProxyXiciSpider(scrapy.Spider):
 
     # 重写了 start_requests() 处理 response，所以这个方法不会执行
     def parse(self, response):
-        self.myLog.info('响应成功 parse() 的 response={}'.format(response))
-        pass
+        self.myLog.info('响应成功, url={}'.format(response.url))
+        for ele in self.process_data(response):
+            yield ele
 
-    def processData(self, response):
+    def process_data(self, response):
         # self.myLog.debug('ProxyXiciSpider parse response=%s' % (response.text))
 
         subSelector = response.xpath('//tr[@class=""]|//tr[@class="odd"]')
@@ -73,9 +69,9 @@ class ProxyXiciSpider(scrapy.Spider):
             item['port'] = sub.xpath('.//td[3]/text()').extract()[0]
             item['type'] = sub.xpath('.//td[5]/text()').extract()[0]
             if sub.xpath('.//td[4]/a/text()'):
-                item['loction'] = sub.xpath('//td[4]/a/text()').extract()[0]
+                item['location'] = sub.xpath('//td[4]/a/text()').extract()[0]
             else:
-                item['loction'] = sub.xpath('.//td[4]/text()').extract()[0]
+                item['location'] = sub.xpath('.//td[4]/text()').extract()[0]
             item['protocol'] = sub.xpath('.//td[6]/text()').extract()[0]
             item['source'] = 'xicidaili'
             items.append(item)

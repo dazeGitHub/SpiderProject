@@ -16,4 +16,4 @@ with open('./xici_response.xml', 'r') as fp:
     bodySelector = Selector(text=body)
     # print('result=' + str(bodySelector.xpath('/*').extract()))
     xiciSpider = ProxyXiciSpider()
-    xiciSpider.processData(bodySelector)
+    xiciSpider.process_data(bodySelector)

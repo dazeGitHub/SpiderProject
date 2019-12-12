@@ -14,7 +14,7 @@ from colorlog import ColoredFormatter
 from xiciSpider.utils.path_utils import get_root_path
 
 
-class CustLog(object):
+class LogUtils(object):
 
     def __init__(self):  # 类 CustLog 的构造函数
         LOG_LEVEL = logging.DEBUG
@@ -74,7 +74,7 @@ class CustLog(object):
 
 
 if __name__ == '__main__':
-    mylog = CustLog()
+    mylog = LogUtils()
     mylog.debug("I'm debug")
     mylog.info("I'm info")
     mylog.warn("I'm warn")

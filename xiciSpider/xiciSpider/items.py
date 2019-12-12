@@ -8,12 +8,12 @@
 import scrapy
 
 
-class GetproxyItem(scrapy.Item):
+class GetproxyItem(scrapy.Item):  # scrapy.Item 最终继承的是 BaseItem
     # define the fields for your item here like:
     # name = scrapy.Field()
-     ip = scrapy.Field()
-     port = scrapy.Field()
-     type = scrapy.Field()
-     loction = scrapy.Field()
-     protocol = scrapy.Field()
-     source = scrapy.Field()
+    ip = scrapy.Field()
+    port = scrapy.Field()
+    type = scrapy.Field()
+    location = scrapy.Field()
+    protocol = scrapy.Field()
+    source = scrapy.Field()

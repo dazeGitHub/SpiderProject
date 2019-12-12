@@ -7,8 +7,8 @@ import urllib.request
 import re
 import threading
 
-from xiciSpider.utils.resource import Resource
-from xiciSpider.utils.cust_log import CustLog
+from xiciSpider.data.resource import Resource
+from xiciSpider.utils.log_utils import LogUtils
 from xiciSpider.utils.path_utils import get_root_path
 
 
@@ -24,7 +24,7 @@ class TestProxy(object):
         self.timeout = 3
         self.regex = re.compile(r'baidu.com')
         self.aliveList = []
-        self.myLog = CustLog()
+        self.myLog = LogUtils()
         # self.run()
 
     def run(self):
