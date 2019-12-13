@@ -114,6 +114,7 @@ class TestProxy(object):
             server = protocol + r'://' + ip_port  # http://175.42.158.71:9999
             result = self.link_with_server_port(protocol, server)
             if result:
+                self.myLog.info('aliveList 开始 append 数据: %s' % server)
                 self.aliveList.append(server)  # list.append() 是线程安全的，这里只添加 ip 地址:端口号
 
 
