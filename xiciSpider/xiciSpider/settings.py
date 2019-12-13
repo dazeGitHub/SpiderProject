@@ -69,8 +69,9 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
 
     'xiciSpider.middlewares.custom_proxy.RandomProxy': 10,
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 20
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 20,
 
+    'xiciSpider.middlewares.interceptor_proxy.InterceptorProxy': 40,
 }
 # scrapy.downloadermiddlewares.useragent
 

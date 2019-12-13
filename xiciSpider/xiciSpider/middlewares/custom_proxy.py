@@ -20,8 +20,4 @@ class RandomProxy(object):
             proxy = proxy.replace('\n', '')
             proxy = proxy.strip()
             self.myLog.debug('random choice proxy = %s' % proxy)
-
-            if request.url.startswith("http://"):
-                request.meta['proxy'] = "http://180.96.27.12:88"  # http代理
-            elif request.url.startswith("https://"):
-                request.meta['proxy'] = "http://109.108.87.136:53281"  # https代理
+            request.meta['proxy'] = proxy  # http代理

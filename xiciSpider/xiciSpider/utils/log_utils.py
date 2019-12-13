@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-__author__ = 'xxx.@qq.com'
+"""
+@File    :   test_pipeline.py
+@Time    :   2019/12/09 14:18:29
+@Author  :   ZYZ
+@Version :   1.0
+@Contact :   zyz163mail@163.com
+@License :   (C)Copyright 2017-2018, Liugroup-NLPR-CASIA
+@Desc    :   只有错误才会被记录到 logfile 中,使用 print() + 自定义颜色防止 logging 打印到控制台 log 两次
+"""
 
 import logging
 import getpass
@@ -8,29 +16,37 @@ import os
 import sys
 from colorlog import ColoredFormatter
 
-
-# 定义 CustLog 类
-# 只有错误才会被记录到 logfile 中
 from xiciSpider.utils.path_utils import get_root_path
 
 
 class LogUtils(object):
+    # 语法: echo -e "\033[字背景颜色；文字颜色m字符串\033[0m"
+    # 例如 echo -e "\033[41;36m something here \033[0m", 41的位置代表底色， 36的位置是代表字的颜色
+    COLOR_DEFAULT_WHITE = "\033[0m"  # 默认白色
+    COLOR_RED = '\033[91m'  # 红色
+    COLOR_YELLOW = '\033[33m'  # 黄色
+    COLOR_YELLOW_LIGHT = '\033[93m'  # 亮黄色
+    COLOR_PINK = '\033[95m'  # 粉色
+    COLOR_CYAN = "\033[96m"  # 青色
+    COLOR_GREEN = "\033[32m"  # 绿色
+    COLOR_BLUE = '\033[34m'  # 蓝色
+    COLOR_BLACK = "\033[97m"  # 黑色
 
     def __init__(self):  # 类 CustLog 的构造函数
         LOG_LEVEL = logging.DEBUG
 
         LOGFORMAT = "  %(log_color)s%(asctime)s  %(levelname)-8s%(reset)s | %(log_color)s%(message)s%(reset)s"
         logging.root.setLevel(LOG_LEVEL)
-        formatter = ColoredFormatter(LOGFORMAT)
+        # formatter = ColoredFormatter(LOGFORMAT)
 
-        stream = logging.StreamHandler()
-        stream.setLevel(LOG_LEVEL)
-        stream.setFormatter(formatter)
-
-        user = getpass.getuser()  # 返回用户的“登录名称”。此函数会按顺序检查环境变量 LOGNAME, USER, LNAME 和 USERNAME，并返回其中第一个被设置为非空字符串的值。 如果均未设置，则在支持 pwd 模块的系统上将返回来自密码数据库的登录名，否则将引发一个异常。
+        # stream = logging.StreamHandler()
+        # stream.setLevel(LOG_LEVEL)
+        # stream.setFormatter(formatter)
+        #
+        user = getpass.getuser()
         self.logger = logging.getLogger(user)
         self.logger.setLevel(logging.DEBUG)
-        self.logger.addHandler(stream)
+        # self.logger.addHandler(stream)
 
         # ---------- 输出日志到文件 ----------
         # 切片操作list[<start>:<stop>:<step>] ，step 可以为负数，表示倒着数
@@ -58,19 +74,27 @@ class LogUtils(object):
 
     # 日志的 5 个级别对应以下 5 个函数
     def debug(self, msg):
+        print(LogUtils.COLOR_DEFAULT_WHITE, 'DEBUG: ' + msg)
         self.logger.debug(msg)
 
     def info(self, msg):
+        print(LogUtils.COLOR_YELLOW, 'INFO: ' + msg)
         self.logger.info(msg)
 
     def warn(self, msg):
+        print(LogUtils.COLOR_PINK, 'WARN: ' + msg)
         self.logger.warning(msg)
 
     def error(self, msg):
+        print(LogUtils.COLOR_RED, 'ERROR: ' + msg)
         self.logger.error(msg)
 
     def critical(self, msg):  # [ˈkrɪtɪkl] 批评的
+        print(LogUtils.COLOR_RED, 'CRITICAL: ' + msg)
         self.logger.critical(msg)
+
+    def test_color(self, color):
+        print(color, '测试')
 
 
 if __name__ == '__main__':
@@ -80,3 +104,13 @@ if __name__ == '__main__':
     mylog.warn("I'm warn")
     mylog.error("I'm error")
     mylog.critical("I'm critical")
+
+    # mylog.test_color(LogUtils.COLOR_DEFAULT_WHITE)
+    # mylog.test_color(LogUtils.COLOR_RED)
+    # mylog.test_color(LogUtils.COLOR_YELLOW)
+    # mylog.test_color(LogUtils.COLOR_YELLOW_LIGHT)
+    # mylog.test_color(LogUtils.COLOR_PINK)
+    # mylog.test_color(LogUtils.COLOR_CYAN)
+    # mylog.test_color(LogUtils.COLOR_GREEN)
+    # mylog.test_color(LogUtils.COLOR_BLUE)
+    # mylog.test_color(LogUtils.COLOR_BLACK)

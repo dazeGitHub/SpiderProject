@@ -12,6 +12,7 @@ from xiciSpider.utils.log_utils import LogUtils
 from xiciSpider.utils.path_utils import get_root_path
 
 
+# 测试 proxy.txt 中的代理将好使的放到 alive.txt 中
 class TestProxy(object):
 
     def __init__(self):
@@ -118,9 +119,4 @@ class TestProxy(object):
 
 if __name__ == '__main__':
     tp = TestProxy()
-    for ele in Resource.get_proxy():
-        print('开始测试代理: ele=%s' % ele)
-        protocol = ele[0:ele.index(':')]
-        tp.link_with_server_port(protocol, ele)
-        time.sleep(7)
-    # tp.run()
+    tp.run()

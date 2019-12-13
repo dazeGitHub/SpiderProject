@@ -26,7 +26,7 @@ class ProxyXiciSpider(scrapy.Spider):
             start_urls.append('http://www.xicidaili.com/' + type + '/' + str(i))
 
     def start_requests(self):
-        self.start_urls = ['http://www.xicidaili.com/nn/1']
+        # self.start_urls = ['http://www.xicidaili.com/nn/1']
         for url in self.start_urls:
             self.myLog.info('开始请求: request url = %s' % url)
             sleep(self.sleepTime)  # 休眠, 防止封ip , 设置了 DOWNLOAD_DELAY 这里貌似不设置也没事
