@@ -8,7 +8,7 @@
 @Version :   1.0
 @Contact :   zyz163mail@163.com
 @License :   (C)Copyright 2017-2018, Liugroup-NLPR-CASIA
-@Desc    :   None
+@Desc    :   这个只能在 Pycharm 上运行,命令行找不到目录
 '''
 
 import os
