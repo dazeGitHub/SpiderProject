@@ -15,7 +15,7 @@ class InterceptorProxy(object):
         self.myLog = LogUtils()
 
     def process_request(self, request, spider):
-        self.myLog.debug('request=%s' % request)
+        self.myLog.debug('InterceptorProxy request=%s' % request)
 
     def process_response(self, request, response, spider):
-        self.myLog.debug('%s 的 response = %s' % (request.url, response))
+        self.myLog.debug('InterceptorProxy %s 的 response = %s' % (request.url, response))
